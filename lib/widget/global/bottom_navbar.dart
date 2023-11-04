@@ -16,7 +16,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
     "Chat": [Icons.chat_outlined, Icons.chat_rounded],
     "Profile": [Icons.person_outline, Icons.person_rounded]
   };
-
+  double widthTab = 0;
   int selectedIndex = 0;
 
   void selectIndex(int index) {
@@ -24,16 +24,16 @@ class _BottomNavbarState extends State<BottomNavbar> {
     setState(() {});
   }
 
-  double handleBarAnimation(int index) {
+  double handleBarAnimation(int index, double widthTab) {
     switch (selectedIndex) {
       case 0:
         return 0;
       case 1:
-        return 86;
+        return this.widthTab;
       case 2:
-        return 86 * 2 + 3;
+        return this.widthTab * 2;
       case 3:
-        return 86 * 3 + 3;
+        return this.widthTab * 3;
       default:
         return 0;
     }
@@ -41,6 +41,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
 
   @override
   Widget build(BuildContext context) {
+    widthTab = getWidth(context) * 0.9 / tabs.length;
     return Positioned(
       bottom: 20,
       width: getWidth(context) * 0.9,
@@ -52,8 +53,8 @@ class _BottomNavbarState extends State<BottomNavbar> {
             color: Colors.white,
             boxShadow: const [
               BoxShadow(
-                  blurRadius: 3,
-                  spreadRadius: 3,
+                  blurRadius: 2,
+                  spreadRadius: 2,
                   offset: Offset(0, 2),
                   color: CustomColor.shadowColor)
             ]),
@@ -66,7 +67,7 @@ class _BottomNavbarState extends State<BottomNavbar> {
                   (index) => GestureDetector(
                         onTap: () => selectIndex(index),
                         child: SizedBox(
-                          width: 70,
+                          width: getWidth(context) * 0.9 / tabs.length,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -96,11 +97,11 @@ class _BottomNavbarState extends State<BottomNavbar> {
                       )),
             ),
             AnimatedPositioned(
-              duration: const Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 150),
               bottom: 0,
-              left: 20 + handleBarAnimation(selectedIndex),
+              left: 18 + handleBarAnimation(selectedIndex, widthTab),
               child: Container(
-                width: 70,
+                width: widthTab - 35,
                 height: 5,
                 margin: const EdgeInsets.only(bottom: 1),
                 decoration: BoxDecoration(
