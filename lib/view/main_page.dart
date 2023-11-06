@@ -14,10 +14,14 @@ class MainView extends StatefulWidget {
   State<MainView> createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainViewState extends State<MainView>
+    with AutomaticKeepAliveClientMixin {
   late final PageController _pageController;
   double widthTab = 0;
   int selectedIndex = 0;
+
+  @override
+  bool get wantKeepAlive => true;
 
   List<Widget> pages = [
     const HomeView(),
@@ -34,9 +38,12 @@ class _MainViewState extends State<MainView> {
   };
 
   void selectIndex(int index) {
-    selectedIndex = index;
-    _pageController.animateToPage(index,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.decelerate,
+    );
+
     setState(() {});
   }
 
@@ -65,6 +72,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     widthTab = getWidth(context) * 0.9 / tabs.length;
 
     return Scaffold(
