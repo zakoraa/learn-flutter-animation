@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class ProfileView extends StatelessWidget {
+  const ProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,8 +10,8 @@ class HomeView extends StatelessWidget {
       height: getHeight(context),
       width: getWidth(context),
       alignment: Alignment.center,
-      color: Colors.white,
-      child: const Text("Halaman Home"),
+      color: Colors.green,
+      child: const Text("Halaman Profile"),
     );
   }
 }
