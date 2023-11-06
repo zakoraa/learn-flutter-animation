@@ -12,8 +12,8 @@ class BottomNavbar extends StatefulWidget {
 class _BottomNavbarState extends State<BottomNavbar> {
   Map<String, List<dynamic>> tabs = {
     "Home": [Icons.home_outlined, Icons.home_rounded],
-    "Shop": [Icons.shop_outlined, Icons.shop_rounded],
-    "Chat": [Icons.chat_outlined, Icons.chat_rounded],
+    "Shop": [Icons.shopping_cart_outlined, Icons.shopping_cart],
+    "Chat": [Icons.forum_outlined, Icons.forum],
     "Profile": [Icons.person_outline, Icons.person_rounded]
   };
   double widthTab = 0;
