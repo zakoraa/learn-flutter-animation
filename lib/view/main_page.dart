@@ -38,9 +38,8 @@ class _MainViewState extends State<MainView>
   };
 
   void selectIndex(int index) {
-    _pageController.jumpToPage(
-      index,
-    );
+    _pageController.animateToPage(index,
+        duration: const Duration(milliseconds: 300), curve: Curves.ease);
     setState(() {});
   }
 
