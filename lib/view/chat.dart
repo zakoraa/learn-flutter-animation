@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
-class ChatView extends StatelessWidget {
+class ChatView extends StatefulWidget {
   const ChatView({super.key});
+
+  @override
+  State<ChatView> createState() => _ChatViewState();
+}
+
+class _ChatViewState extends State<ChatView> {
+  @override
+  void initState() {
+    print("init Chat");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
