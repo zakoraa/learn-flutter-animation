@@ -16,6 +16,12 @@ class _ChatViewState extends State<ChatView> {
   }
 
   @override
+  void dispose() {
+    print("dispose Chat");
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: getHeight(context),

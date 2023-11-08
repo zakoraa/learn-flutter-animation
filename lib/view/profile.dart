@@ -16,6 +16,12 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   @override
+  void dispose() {
+    print("dispose Profile");
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: getHeight(context),

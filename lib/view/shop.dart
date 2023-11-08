@@ -16,6 +16,12 @@ class _ShopViewState extends State<ShopView> {
   }
 
   @override
+  void dispose() {
+    print("dispose Shop");
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: getHeight(context),

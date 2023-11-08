@@ -43,16 +43,16 @@ class _MainViewState extends State<MainView>
     setState(() {});
   }
 
-  double handleBarAnimation(int index, double widthTab) {
+  double handleBarAnimation(int index) {
     switch (selectedIndex) {
       case 0:
         return 0;
       case 1:
-        return this.widthTab;
+        return widthTab;
       case 2:
-        return this.widthTab * 2;
+        return widthTab * 2;
       case 3:
-        return this.widthTab * 3;
+        return widthTab * 3;
       default:
         return 0;
     }
@@ -72,10 +72,6 @@ class _MainViewState extends State<MainView>
     widthTab = getWidth(context) * 0.9 / tabs.length;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Animation"),
-        centerTitle: true,
-      ),
       body: Stack(
         alignment: Alignment.center,
         fit: StackFit.expand,
@@ -95,7 +91,7 @@ class _MainViewState extends State<MainView>
           Positioned(
             bottom: 20,
             width: getWidth(context) * 0.9,
-            height: 70,
+            height: 60,
             child: Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
@@ -133,17 +129,17 @@ class _MainViewState extends State<MainView>
                                               255, 113, 113, 113),
                                       size: 30,
                                     ),
-                                    const SizedBox(
-                                      height: 3,
-                                    ),
-                                    Text(
-                                      tabs.keys.elementAt(index),
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: index == selectedIndex
-                                              ? FontWeight.bold
-                                              : FontWeight.w400),
-                                    )
+                                    // const SizedBox(
+                                    //   height: 3,
+                                    // ),
+                                    // Text(
+                                    //   tabs.keys.elementAt(index),
+                                    //   style: TextStyle(
+                                    //       fontSize: 12,
+                                    //       fontWeight: index == selectedIndex
+                                    //           ? FontWeight.bold
+                                    //           : FontWeight.w400),
+                                    // )
                                   ],
                                 ),
                               ),
@@ -152,7 +148,7 @@ class _MainViewState extends State<MainView>
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 150),
                     bottom: 0,
-                    left: 18 + handleBarAnimation(selectedIndex, widthTab),
+                    left: 18 + handleBarAnimation(selectedIndex),
                     child: Container(
                       width: widthTab - 35,
                       height: 5,
