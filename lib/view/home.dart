@@ -9,14 +9,43 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  late final ScrollController _scrollController;
+  double positionedImage = 0;
+  double heightImage = 300;
+
+  void handleScroll() {
+    positionedImage = positionedImage - _scrollController.offset;
+    heightImage = heightImage - _scrollController.offset;
+    if (positionedImage < -300) {
+      positionedImage = -300;
+    }
+    if (positionedImage >= 0) {
+      positionedImage = 0;
+    }
+    if (heightImage < 130) {
+      heightImage = 130;
+    }
+    if (heightImage >= 300) {
+      heightImage = 300;
+    }
+  }
+
   @override
   void initState() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(
+      () {
+        handleScroll();
+        setState(() {});
+      },
+    );
     print("init Home");
     super.initState();
   }
 
   @override
   void dispose() {
+    _scrollController.dispose();
     print("dispose Home");
     super.dispose();
   }
@@ -26,20 +55,21 @@ class _HomeViewState extends State<HomeView> {
     return SizedBox(
       height: getHeight(context),
       width: getWidth(context),
-      child: SingleChildScrollView(
-        physics: const RangeMaintainingScrollPhysics(),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 350,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            child: Container(
+              color: Colors.white,
+              height: heightImage + 50,
               width: getWidth(context),
               child: Stack(
                 alignment: Alignment.center,
                 children: [
                   Positioned(
-                    top: 0,
+                    top: positionedImage,
                     child: Container(
-                      height: 300,
+                      height: heightImage,
                       clipBehavior: Clip.hardEdge,
                       width: getWidth(context),
                       decoration: const BoxDecoration(
@@ -53,7 +83,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   Positioned(
-                    top: 300 - 20,
+                    top: heightImage - 20,
                     width: getWidth(context) * 0.9,
                     child: Container(
                       height: 45,
@@ -126,11 +156,23 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 1000,
-            )
-          ],
-        ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: heightImage + 50),
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => const SizedBox(
+                height: 10,
+              ),
+              itemCount: 50,
+              controller: _scrollController,
+              itemBuilder: (context, index) => Container(
+                height: 200,
+                color: Colors.red,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
