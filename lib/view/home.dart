@@ -38,9 +38,14 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Positioned(
                     top: 0,
-                    child: SizedBox(
+                    child: Container(
                       height: 300,
+                      clipBehavior: Clip.hardEdge,
                       width: getWidth(context),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10))),
                       child: Image.asset(
                         "assets/aot.jpeg",
                         fit: BoxFit.cover,
@@ -92,8 +97,7 @@ class _HomeViewState extends State<HomeView> {
                                   width: 30,
                                   transform: Matrix4.rotationZ(7),
                                   decoration: const BoxDecoration(
-                                      color:
-                                          Color.fromARGB(255, 224, 223, 223)),
+                                      color: Color.fromARGB(255, 14, 14, 14)),
                                 ),
                               ),
                               Container(
@@ -102,13 +106,14 @@ class _HomeViewState extends State<HomeView> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: const BoxDecoration(
-                                    color: Colors.white,
+                                    color: Color.fromARGB(255, 24, 24, 24),
                                     borderRadius: BorderRadius.only(
                                         topRight: Radius.circular(15),
                                         bottomRight: Radius.circular(15))),
                                 child: const Text(
                                   "Selamat Datang",
                                   style: TextStyle(
+                                    color: Colors.white,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
