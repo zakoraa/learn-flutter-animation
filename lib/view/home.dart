@@ -15,8 +15,8 @@ class _HomeViewState extends State<HomeView> {
   bool isTitleAppBarShown = false;
 
   void handleScroll() {
-    positionedImage = positionedImage - _scrollController.offset;
-    heightImage = heightImage - _scrollController.offset;
+    positionedImage = positionedImage - _scrollController.offset / 2;
+    heightImage = heightImage - _scrollController.offset / 4;
     if (positionedImage < -300) {
       positionedImage = -300;
       isTitleAppBarShown = true;
@@ -33,6 +33,7 @@ class _HomeViewState extends State<HomeView> {
     if (heightImage >= 300) {
       heightImage = 300;
     }
+    print(heightImage);
   }
 
   @override
@@ -83,7 +84,7 @@ class _HomeViewState extends State<HomeView> {
                               bottomLeft: Radius.circular(10),
                               bottomRight: Radius.circular(10))),
                       child: Image.asset(
-                        "assets/aot.jpeg",
+                        "assets/sasageyo.jpg",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -141,6 +142,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Container(
+            color: Colors.white,
             margin: EdgeInsets.only(top: heightImage + 40),
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),

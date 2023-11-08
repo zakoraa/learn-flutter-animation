@@ -127,19 +127,8 @@ class _MainViewState extends State<MainView>
                                           ? Colors.black
                                           : const Color.fromARGB(
                                               255, 113, 113, 113),
-                                      size: 30,
+                                      size: 25,
                                     ),
-                                    // const SizedBox(
-                                    //   height: 3,
-                                    // ),
-                                    // Text(
-                                    //   tabs.keys.elementAt(index),
-                                    //   style: TextStyle(
-                                    //       fontSize: 12,
-                                    //       fontWeight: index == selectedIndex
-                                    //           ? FontWeight.bold
-                                    //           : FontWeight.w400),
-                                    // )
                                   ],
                                 ),
                               ),
