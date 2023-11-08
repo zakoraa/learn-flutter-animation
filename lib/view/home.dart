@@ -12,16 +12,21 @@ class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
   double positionedImage = 0;
   double heightImage = 300;
+  bool isTitleAppBarShown = false;
 
   void handleScroll() {
     positionedImage = positionedImage - _scrollController.offset;
     heightImage = heightImage - _scrollController.offset;
     if (positionedImage < -300) {
       positionedImage = -300;
+      isTitleAppBarShown = true;
+    } else {
+      isTitleAppBarShown = false;
     }
     if (positionedImage >= 0) {
       positionedImage = 0;
     }
+
     if (heightImage < 130) {
       heightImage = 130;
     }
@@ -46,6 +51,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _scrollController.removeListener(() {});
     print("dispose Home");
     super.dispose();
   }
@@ -113,52 +119,29 @@ class _HomeViewState extends State<HomeView> {
                   Positioned(
                       top: 5,
                       left: 0,
-                      child: SafeArea(
-                        child: SizedBox(
-                          height: 50,
-                          child: Stack(
-                            clipBehavior: Clip.antiAlias,
-                            children: [
-                              Positioned(
-                                bottom: 0,
-                                left: 10,
-                                child: Container(
-                                  height: 50,
-                                  width: 30,
-                                  transform: Matrix4.rotationZ(7),
-                                  decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 14, 14, 14)),
+                      child: AnimatedOpacity(
+                          duration: Duration(
+                              milliseconds: isTitleAppBarShown ? 200 : 0),
+                          opacity: isTitleAppBarShown ? 1 : 0,
+                          child: SafeArea(
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 10),
+                              child: const Text(
+                                "Selamat Datang",
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              Container(
-                                height: 40,
-                                alignment: Alignment.center,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(255, 24, 24, 24),
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(15),
-                                        bottomRight: Radius.circular(15))),
-                                child: const Text(
-                                  "Selamat Datang",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ))
+                            ),
+                          )))
                 ],
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: heightImage + 50),
+            margin: EdgeInsets.only(top: heightImage + 40),
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => const SizedBox(
@@ -168,7 +151,7 @@ class _HomeViewState extends State<HomeView> {
               controller: _scrollController,
               itemBuilder: (context, index) => Container(
                 height: 200,
-                color: Colors.red,
+                color: const Color.fromARGB(255, 203, 203, 203),
               ),
             ),
           )
