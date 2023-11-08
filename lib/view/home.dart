@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
       height: getHeight(context),
       width: getWidth(context),
       child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: const RangeMaintainingScrollPhysics(),
         child: Column(
           children: [
             SizedBox(
@@ -120,6 +120,9 @@ class _HomeViewState extends State<HomeView> {
                       ))
                 ],
               ),
+            ),
+            const SizedBox(
+              height: 1000,
             )
           ],
         ),
