@@ -12,28 +12,17 @@ class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
   double positionedImage = 0;
   double heightImage = 300;
+  dynamic animationDuration = 300;
   bool isTitleAppBarShown = false;
 
   void handleScroll() {
-    positionedImage = positionedImage - _scrollController.offset / 2;
-    heightImage = heightImage - _scrollController.offset / 4;
-    if (positionedImage < -300) {
+    if (_scrollController.offset > 70) {
       positionedImage = -300;
       isTitleAppBarShown = true;
     } else {
+      positionedImage = 0;
       isTitleAppBarShown = false;
     }
-    if (positionedImage >= 0) {
-      positionedImage = 0;
-    }
-
-    if (heightImage < 130) {
-      heightImage = 130;
-    }
-    if (heightImage >= 300) {
-      heightImage = 300;
-    }
-    print(heightImage);
   }
 
   @override
@@ -73,7 +62,8 @@ class _HomeViewState extends State<HomeView> {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Positioned(
+                  AnimatedPositioned(
+                    duration:  Duration(milliseconds: animationDuration),
                     top: positionedImage,
                     child: Container(
                       height: heightImage,
@@ -89,8 +79,9 @@ class _HomeViewState extends State<HomeView> {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: heightImage - 20,
+                  AnimatedPositioned(
+                    duration:  Duration(milliseconds: animationDuration),
+                    top: isTitleAppBarShown ? 100 : heightImage - 20,
                     width: getWidth(context) * 0.9,
                     child: Container(
                       height: 45,
@@ -141,9 +132,11 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          Container(
+          AnimatedContainer(
+            duration:  Duration(milliseconds: animationDuration),
             color: Colors.white,
-            margin: EdgeInsets.only(top: heightImage + 40),
+            margin: EdgeInsets.only(
+                top: isTitleAppBarShown ? 170 : heightImage + 40),
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => const SizedBox(
