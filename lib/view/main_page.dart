@@ -70,11 +70,16 @@ class _MainViewState extends State<MainView>
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       handleScroll();
-      setState(() {
-        
-      });
+      setState(() {});
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    _scrollController.removeListener(() {});
+    super.dispose();
   }
 
   @override
@@ -104,6 +109,32 @@ class _MainViewState extends State<MainView>
             itemBuilder: (context, index) {
               return pages[index];
             },
+          ),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 200),
+            bottom: _isScrollingDown ? 10 : -80,
+            child: GestureDetector(
+              onTap: () {
+                _isScrollingDown = false;
+                _scrollController.animateTo(0,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.bounceIn);
+                setState(() {});
+              },
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  shape: BoxShape.circle,
+                ),
+                child: const Icon(
+                  Icons.arrow_upward,
+                  color: Colors.white,
+                  size: 20,
+                ),
+              ),
+            ),
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
