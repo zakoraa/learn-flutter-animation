@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_animation/view/chat.dart';
 import 'package:flutter_animation/view/home.dart';
 import 'package:flutter_animation/view/profile.dart';
@@ -17,18 +18,13 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView>
     with AutomaticKeepAliveClientMixin {
   late final PageController _pageController;
+  late final ScrollController _scrollController;
   double widthTab = 0;
   int selectedIndex = 0;
+  bool _isScrollingDown = false;
 
   @override
   bool get wantKeepAlive => true;
-
-  List<Widget> pages = [
-    const HomeView(),
-    const ShopView(),
-    const ChatView(),
-    const ProfileView()
-  ];
 
   Map<String, List<dynamic>> tabs = {
     "Home": [Icons.home_outlined, Icons.home_rounded],
@@ -58,11 +54,26 @@ class _MainViewState extends State<MainView>
     }
   }
 
+  void handleScroll() {
+    if (_scrollController.position.userScrollDirection ==
+        ScrollDirection.reverse) {
+      _isScrollingDown = true;
+    } else {
+      _isScrollingDown = false;
+    }
+  }
+
   @override
   void initState() {
     _pageController =
         PageController(keepPage: true, viewportFraction: 1, initialPage: 0);
-
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      handleScroll();
+      setState(() {
+        
+      });
+    });
     super.initState();
   }
 
@@ -70,6 +81,12 @@ class _MainViewState extends State<MainView>
   Widget build(BuildContext context) {
     super.build(context);
     widthTab = getWidth(context) * 0.9 / tabs.length;
+    List<Widget> pages = [
+      HomeView(scrollController: _scrollController),
+      const ShopView(),
+      const ChatView(),
+      const ProfileView()
+    ];
 
     return Scaffold(
       body: Stack(
@@ -88,8 +105,9 @@ class _MainViewState extends State<MainView>
               return pages[index];
             },
           ),
-          Positioned(
-            bottom: 10,
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 200),
+            bottom: _isScrollingDown ? -80 : 10,
             width: getWidth(context) * 0.9,
             height: 55,
             child: Container(

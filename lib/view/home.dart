@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({super.key, required this.scrollController});
+
+  final ScrollController scrollController;
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-  late final ScrollController _scrollController;
   double positionedImage = 0;
   double heightImage = 250;
   dynamic animationDuration = 300;
   bool isTitleAppBarShown = false;
 
   void handleScroll() {
-    if (_scrollController.offset > 70) {
+    if (widget.scrollController.offset > 70) {
       positionedImage = -250;
       isTitleAppBarShown = true;
     } else {
@@ -27,11 +28,12 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
-    _scrollController = ScrollController();
-    _scrollController.addListener(
+    widget.scrollController.addListener(
       () {
         handleScroll();
-        setState(() {});
+        if (mounted) {
+          setState(() {});
+        }
       },
     );
     print("init Home");
@@ -40,8 +42,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
-    _scrollController.removeListener(() {});
+    widget.scrollController.removeListener(() {});
     print("dispose Home");
     super.dispose();
   }
@@ -154,15 +155,13 @@ class _HomeViewState extends State<HomeView> {
             child: AnimatedContainer(
               duration: Duration(milliseconds: animationDuration),
               color: Colors.white,
-              // margin: EdgeInsets.only(
-              //     top: isTitleAppBarShown ? 170 : heightImage + 40),
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => const SizedBox(
                   height: 10,
                 ),
                 itemCount: 50,
-                controller: _scrollController,
+                controller: widget.scrollController,
                 itemBuilder: (context, index) => Container(
                   height: 200,
                   color: const Color.fromARGB(255, 203, 203, 203),
