@@ -11,13 +11,13 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late final ScrollController _scrollController;
   double positionedImage = 0;
-  double heightImage = 300;
+  double heightImage = 250;
   dynamic animationDuration = 300;
   bool isTitleAppBarShown = false;
 
   void handleScroll() {
     if (_scrollController.offset > 70) {
-      positionedImage = -300;
+      positionedImage = -250;
       isTitleAppBarShown = true;
     } else {
       positionedImage = 0;
@@ -51,105 +51,125 @@ class _HomeViewState extends State<HomeView> {
     return SizedBox(
       height: getHeight(context),
       width: getWidth(context),
-      child: Stack(
+      child: Column(
         children: [
-          Positioned(
-            top: 0,
-            child: Container(
-              color: Colors.white,
-              height: heightImage + 50,
-              width: getWidth(context),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  AnimatedPositioned(
-                    duration:  Duration(milliseconds: animationDuration),
-                    top: positionedImage,
-                    child: Container(
-                      height: heightImage,
-                      clipBehavior: Clip.hardEdge,
-                      width: getWidth(context),
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10))),
-                      child: Image.asset(
-                        "assets/sasageyo.jpg",
-                        fit: BoxFit.cover,
-                      ),
+          AnimatedContainer(
+            duration: Duration(milliseconds: animationDuration),
+            color: Colors.white,
+            height: isTitleAppBarShown ? 160 : heightImage + 50,
+            width: getWidth(context),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: animationDuration),
+                  top: positionedImage,
+                  child: Container(
+                    height: heightImage,
+                    clipBehavior: Clip.hardEdge,
+                    width: getWidth(context),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10))),
+                    child: Image.asset(
+                      "assets/sasageyo.jpg",
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  AnimatedPositioned(
-                    duration:  Duration(milliseconds: animationDuration),
-                    top: isTitleAppBarShown ? 100 : heightImage - 20,
-                    width: getWidth(context) * 0.9,
-                    child: Container(
-                      height: 45,
-                      width: getWidth(context),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          border: Border.all(width: 0.5, color: Colors.grey)),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(Icons.search),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text("Cari berdasarkan hati anda...")
-                            ],
-                          ),
-                          Icon(Icons.close)
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                      top: 5,
-                      left: 0,
-                      child: AnimatedOpacity(
-                          duration: Duration(
-                              milliseconds: isTitleAppBarShown ? 200 : 0),
-                          opacity: isTitleAppBarShown ? 1 : 0,
-                          child: SafeArea(
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 10),
-                              child: const Text(
-                                "Selamat Datang",
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                ),
+                AnimatedPositioned(
+                  duration: Duration(milliseconds: animationDuration),
+                  top: isTitleAppBarShown ? 100 : heightImage - 20,
+                  width: getWidth(context) * 0.9,
+                  child: Container(
+                    height: 45,
+                    width: getWidth(context),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        border: Border.all(width: 0.5, color: Colors.grey)),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.search,
+                              color: Color.fromARGB(255, 126, 126, 126),
                             ),
-                          )))
-                ],
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Cari berdasarkan hati anda...",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 126, 126, 126)),
+                            )
+                          ],
+                        ),
+                        Icon(
+                          Icons.close,
+                          color: Color.fromARGB(255, 126, 126, 126),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 5,
+                  child: AnimatedOpacity(
+                      duration:
+                          Duration(milliseconds: isTitleAppBarShown ? 500 : 0),
+                      opacity: isTitleAppBarShown ? 1 : 0,
+                      child: SafeArea(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          child: const Text(
+                            "Selamat Datang",
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )),
+                ),
+                isTitleAppBarShown
+                    ? Positioned(
+                        bottom: 0,
+                        child: Container(
+                          height: 0.5,
+                          width: getWidth(context),
+                          color: Colors.grey,
+                        ))
+                    : const SizedBox.shrink()
+              ],
+            ),
+          ),
+          Expanded(
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: animationDuration),
+              color: Colors.white,
+              // margin: EdgeInsets.only(
+              //     top: isTitleAppBarShown ? 170 : heightImage + 40),
+              child: ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+                itemCount: 50,
+                controller: _scrollController,
+                itemBuilder: (context, index) => Container(
+                  height: 200,
+                  color: const Color.fromARGB(255, 203, 203, 203),
+                ),
               ),
             ),
           ),
-          AnimatedContainer(
-            duration:  Duration(milliseconds: animationDuration),
-            color: Colors.white,
-            margin: EdgeInsets.only(
-                top: isTitleAppBarShown ? 170 : heightImage + 40),
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 10,
-              ),
-              itemCount: 50,
-              controller: _scrollController,
-              itemBuilder: (context, index) => Container(
-                height: 200,
-                color: const Color.fromARGB(255, 203, 203, 203),
-              ),
-            ),
-          )
         ],
       ),
     );

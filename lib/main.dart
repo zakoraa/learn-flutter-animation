@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/theme/theme.dart';
 import 'view/main_page.dart';
 
 void main() {
@@ -12,6 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: CustomTheme.lightTheme,
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: const ScrollBehavior().copyWith(overscroll: false),

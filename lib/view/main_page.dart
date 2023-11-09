@@ -89,14 +89,14 @@ class _MainViewState extends State<MainView>
             },
           ),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             width: getWidth(context) * 0.9,
-            height: 60,
+            height: 55,
             child: Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
+                  color: Colors.black,
                   boxShadow: const [
                     BoxShadow(
                         blurRadius: 2,
@@ -114,7 +114,8 @@ class _MainViewState extends State<MainView>
                               onTap: () {
                                 selectIndex(index);
                               },
-                              child: SizedBox(
+                              child: Container(
+                                color: Colors.transparent,
                                 width: getWidth(context) * 0.9 / tabs.length,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -124,9 +125,9 @@ class _MainViewState extends State<MainView>
                                           ? tabs.values.elementAt(index)[1]
                                           : tabs.values.elementAt(index)[0],
                                       color: index == selectedIndex
-                                          ? Colors.black
+                                          ? Colors.white
                                           : const Color.fromARGB(
-                                              255, 113, 113, 113),
+                                              255, 146, 144, 144),
                                       size: 25,
                                     ),
                                   ],
@@ -143,7 +144,7 @@ class _MainViewState extends State<MainView>
                       height: 5,
                       margin: const EdgeInsets.only(bottom: 1),
                       decoration: BoxDecoration(
-                          color: Colors.black,
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(5)),
                     ),
                   ),
