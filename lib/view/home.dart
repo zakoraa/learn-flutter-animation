@@ -56,9 +56,17 @@ class _HomeViewState extends State<HomeView> {
         children: [
           AnimatedContainer(
             duration: Duration(milliseconds: animationDuration),
-            color: Colors.white,
-            height: isTitleAppBarShown ? 160 : heightImage + 50,
+            height: isTitleAppBarShown ? 160 : heightImage + 30,
             width: getWidth(context),
+            decoration: BoxDecoration(
+                border: Border.all(
+                    width: 0.5,
+                    color:
+                        isTitleAppBarShown ? Colors.grey : Colors.transparent),
+                color: Colors.white,
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20))),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -73,9 +81,19 @@ class _HomeViewState extends State<HomeView> {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),
                             bottomRight: Radius.circular(10))),
-                    child: Image.asset(
-                      "assets/sasageyo.jpg",
-                      fit: BoxFit.cover,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.asset(
+                          "assets/raja_ampat.jpg",
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          width: getWidth(context),
+                          height: heightImage,
+                          color: const Color.fromARGB(95, 0, 0, 0),
+                        )
+                      ],
                     ),
                   ),
                 ),
@@ -139,15 +157,6 @@ class _HomeViewState extends State<HomeView> {
                         ),
                       )),
                 ),
-                isTitleAppBarShown
-                    ? Positioned(
-                        bottom: 0,
-                        child: Container(
-                          height: 0.5,
-                          width: getWidth(context),
-                          color: Colors.grey,
-                        ))
-                    : const SizedBox.shrink()
               ],
             ),
           ),
@@ -158,13 +167,66 @@ class _HomeViewState extends State<HomeView> {
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
                 separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
                 itemCount: 50,
                 controller: widget.scrollController,
                 itemBuilder: (context, index) => Container(
-                  height: 200,
-                  color: const Color.fromARGB(255, 203, 203, 203),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  height: 300,
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(
+                        width: 0.5,
+                        color: Colors.grey,
+                      )),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          constraints: const BoxConstraints.expand(),
+                          child: Image.asset(
+                            "assets/raja.jpg",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Wisata Raja Ampat",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star_rounded,
+                                      color: Colors.amber,
+                                      size: 20,
+                                    ),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text("4.9"),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ))
+                    ],
+                  ),
                 ),
               ),
             ),

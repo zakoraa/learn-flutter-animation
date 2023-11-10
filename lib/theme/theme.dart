@@ -10,14 +10,18 @@ class CustomTheme {
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(color: Colors.black),
           titleTextStyle: TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold)),
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              fontFamily: "Poppins")),
       textTheme: const TextTheme(
         bodyLarge: TextStyle(
-            fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-        bodyMedium: TextStyle(
-          fontSize: 12,
-          color: Colors.black,
-        ),
+            fontSize: 20,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontFamily: "Poppins"),
+        bodyMedium:
+            TextStyle(fontSize: 12, color: Colors.black, fontFamily: "Poppins"),
       ),
       highlightColor: Colors.transparent,
       iconTheme: const IconThemeData(color: CustomColor.primaryColor, size: 25),

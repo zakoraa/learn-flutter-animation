@@ -19,8 +19,8 @@ class _MainViewState extends State<MainView>
     with AutomaticKeepAliveClientMixin {
   late final PageController _pageController;
   late final ScrollController _scrollController;
-  double widthTab = 0;
-  int selectedIndex = 0;
+  double _widthTab = 0;
+  int _selectedIndex = 0;
   bool _isScrollingDown = false;
 
   @override
@@ -40,15 +40,15 @@ class _MainViewState extends State<MainView>
   }
 
   double handleBarAnimation(int index) {
-    switch (selectedIndex) {
+    switch (_selectedIndex) {
       case 0:
         return 0;
       case 1:
-        return widthTab;
+        return _widthTab;
       case 2:
-        return widthTab * 2;
+        return _widthTab * 2;
       case 3:
-        return widthTab * 3;
+        return _widthTab * 3;
       default:
         return 0;
     }
@@ -86,7 +86,7 @@ class _MainViewState extends State<MainView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    widthTab = getWidth(context) * 0.9 / tabs.length;
+    _widthTab = getWidth(context) * 0.9 / tabs.length;
     List<Widget> pages = [
       HomeView(scrollController: _scrollController),
       const ShopView(),
@@ -104,7 +104,7 @@ class _MainViewState extends State<MainView>
             itemCount: pages.length,
             controller: _pageController,
             onPageChanged: (value) {
-              selectedIndex = value;
+              _selectedIndex = value;
               setState(() {});
             },
             itemBuilder: (context, index) {
@@ -170,10 +170,10 @@ class _MainViewState extends State<MainView>
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      index == selectedIndex
+                                      index == _selectedIndex
                                           ? tabs.values.elementAt(index)[1]
                                           : tabs.values.elementAt(index)[0],
-                                      color: index == selectedIndex
+                                      color: index == _selectedIndex
                                           ? Colors.white
                                           : const Color.fromARGB(
                                               255, 146, 144, 144),
@@ -187,9 +187,9 @@ class _MainViewState extends State<MainView>
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 150),
                     bottom: 0,
-                    left: 18 + handleBarAnimation(selectedIndex),
+                    left: 18 + handleBarAnimation(_selectedIndex),
                     child: Container(
-                      width: widthTab - 35,
+                      width: _widthTab - 35,
                       height: 5,
                       margin: const EdgeInsets.only(bottom: 1),
                       decoration: BoxDecoration(
