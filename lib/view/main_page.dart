@@ -55,11 +55,12 @@ class _MainViewState extends State<MainView>
   }
 
   void handleScroll() {
-    if (_scrollController.position.userScrollDirection ==
-        ScrollDirection.reverse) {
-      _isScrollingDown = true;
-    } else {
+    if (_scrollController.offset == 0 ||
+        _scrollController.position.userScrollDirection ==
+            ScrollDirection.forward) {
       _isScrollingDown = false;
+    } else {
+      _isScrollingDown = true;
     }
   }
 
@@ -115,10 +116,9 @@ class _MainViewState extends State<MainView>
             bottom: _isScrollingDown ? 10 : -80,
             child: GestureDetector(
               onTap: () {
-                _isScrollingDown = false;
                 _scrollController.animateTo(0,
                     duration: const Duration(milliseconds: 400),
-                    curve: Curves.bounceIn);
+                    curve: Curves.ease);
                 setState(() {});
               },
               child: Container(
