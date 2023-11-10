@@ -164,9 +164,12 @@ class _MainViewState extends State<MainView>
                               onTapDown: (details) {
                                 _selectedIndex = index;
                                 _iconSize = 20;
+                                _selectIndex();
+                              },
+                              onTapCancel: () {
+                                _iconSize = 25;
                                 setState(() {});
                               },
-                              onTap: () => _selectIndex(),
                               child: Container(
                                 color: Colors.transparent,
                                 width: getWidth(context) * 0.9 / _tabs.length,
@@ -177,6 +180,7 @@ class _MainViewState extends State<MainView>
                                       index == _selectedIndex
                                           ? _tabs.values.elementAt(index)[1]
                                           : _tabs.values.elementAt(index)[0],
+                                      grade: 20,
                                       color: index == _selectedIndex
                                           ? Colors.white
                                           : const Color.fromARGB(
@@ -191,6 +195,7 @@ class _MainViewState extends State<MainView>
                             )),
                   ),
                   AnimatedPositioned(
+                    curve: Curves.ease,
                     duration: const Duration(milliseconds: 150),
                     bottom: 0,
                     left: 18 + _handleBarAnimation(_selectedIndex),

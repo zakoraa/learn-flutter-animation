@@ -60,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
             width: getWidth(context),
             decoration: BoxDecoration(
                 border: Border.all(
-                    width: 0.5,
+                    width: isTitleAppBarShown ? 0.5 : 0,
                     color:
                         isTitleAppBarShown ? Colors.grey : Colors.transparent),
                 color: Colors.white,
@@ -173,7 +173,7 @@ class _HomeViewState extends State<HomeView> {
                 controller: widget.scrollController,
                 itemBuilder: (context, index) => Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: 300,
+                  height: 280,
                   clipBehavior: Clip.hardEdge,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
@@ -183,48 +183,43 @@ class _HomeViewState extends State<HomeView> {
                       )),
                   child: Column(
                     children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          constraints: const BoxConstraints.expand(),
-                          child: Image.asset(
-                            "assets/raja.jpg",
-                            fit: BoxFit.cover,
-                          ),
+                      SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: Image.asset(
+                          "assets/raja.jpg",
+                          fit: BoxFit.cover,
                         ),
                       ),
-                      const Expanded(
-                          flex: 1,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Wisata Raja Ampat",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
                               children: [
-                                Text(
-                                  "Wisata Raja Ampat",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16),
+                                Icon(
+                                  Icons.star_rounded,
+                                  color: Colors.amber,
+                                  size: 20,
                                 ),
                                 SizedBox(
-                                  height: 5,
+                                  width: 5,
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star_rounded,
-                                      color: Colors.amber,
-                                      size: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text("4.9"),
-                                  ],
-                                ),
+                                Text("4.9"),
                               ],
                             ),
-                          ))
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
