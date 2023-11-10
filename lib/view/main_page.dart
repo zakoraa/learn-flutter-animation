@@ -21,25 +21,26 @@ class _MainViewState extends State<MainView>
   late final ScrollController _scrollController;
   double _widthTab = 0;
   int _selectedIndex = 0;
+  double _iconSize = 25;
   bool _isScrollingDown = false;
 
   @override
   bool get wantKeepAlive => true;
 
-  Map<String, List<dynamic>> tabs = {
+  final Map<String, List<dynamic>> _tabs = {
     "Home": [Icons.home_outlined, Icons.home_rounded],
     "Shop": [Icons.shopping_cart_outlined, Icons.shopping_cart],
     "Chat": [Icons.forum_outlined, Icons.forum],
     "Profile": [Icons.person_outline, Icons.person_rounded]
   };
 
-  void selectIndex(int index) {
-    _pageController.animateToPage(index,
+  void _selectIndex() {
+    _pageController.animateToPage(_selectedIndex,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
     setState(() {});
   }
 
-  double handleBarAnimation(int index) {
+  double _handleBarAnimation(int index) {
     switch (_selectedIndex) {
       case 0:
         return 0;
@@ -54,7 +55,7 @@ class _MainViewState extends State<MainView>
     }
   }
 
-  void handleScroll() {
+  void _handleScroll() {
     if (_scrollController.offset == 0 ||
         _scrollController.position.userScrollDirection ==
             ScrollDirection.forward) {
@@ -70,7 +71,7 @@ class _MainViewState extends State<MainView>
         PageController(keepPage: true, viewportFraction: 1, initialPage: 0);
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      handleScroll();
+      _handleScroll();
       setState(() {});
     });
     super.initState();
@@ -86,7 +87,7 @@ class _MainViewState extends State<MainView>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    _widthTab = getWidth(context) * 0.9 / tabs.length;
+    _widthTab = getWidth(context) * 0.9 / _tabs.length;
     List<Widget> pages = [
       HomeView(scrollController: _scrollController),
       const ShopView(),
@@ -103,10 +104,6 @@ class _MainViewState extends State<MainView>
             physics: const NeverScrollableScrollPhysics(),
             itemCount: pages.length,
             controller: _pageController,
-            onPageChanged: (value) {
-              _selectedIndex = value;
-              setState(() {});
-            },
             itemBuilder: (context, index) {
               return pages[index];
             },
@@ -158,26 +155,35 @@ class _MainViewState extends State<MainView>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: List.generate(
-                        tabs.length,
+                        _tabs.length,
                         (index) => GestureDetector(
-                              onTap: () {
-                                selectIndex(index);
+                              onTapUp: (details) {
+                                _iconSize = 25;
+                                setState(() {});
                               },
+                              onTapDown: (details) {
+                                _selectedIndex = index;
+                                _iconSize = 20;
+                                setState(() {});
+                              },
+                              onTap: () => _selectIndex(),
                               child: Container(
                                 color: Colors.transparent,
-                                width: getWidth(context) * 0.9 / tabs.length,
+                                width: getWidth(context) * 0.9 / _tabs.length,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
                                       index == _selectedIndex
-                                          ? tabs.values.elementAt(index)[1]
-                                          : tabs.values.elementAt(index)[0],
+                                          ? _tabs.values.elementAt(index)[1]
+                                          : _tabs.values.elementAt(index)[0],
                                       color: index == _selectedIndex
                                           ? Colors.white
                                           : const Color.fromARGB(
                                               255, 146, 144, 144),
-                                      size: 25,
+                                      size: index == _selectedIndex
+                                          ? _iconSize
+                                          : 25,
                                     ),
                                   ],
                                 ),
@@ -187,7 +193,7 @@ class _MainViewState extends State<MainView>
                   AnimatedPositioned(
                     duration: const Duration(milliseconds: 150),
                     bottom: 0,
-                    left: 18 + handleBarAnimation(_selectedIndex),
+                    left: 18 + _handleBarAnimation(_selectedIndex),
                     child: Container(
                       width: _widthTab - 35,
                       height: 5,
