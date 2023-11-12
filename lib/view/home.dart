@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/theme/color.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
 class HomeView extends StatefulWidget {
@@ -171,56 +172,70 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 itemCount: 50,
                 controller: widget.scrollController,
-                itemBuilder: (context, index) => Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  height: 280,
-                  clipBehavior: Clip.hardEdge,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        width: 0.5,
-                        color: Colors.grey,
-                      )),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                        child: Image.asset(
-                          "assets/raja.jpg",
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Material(
+                    animationDuration: const Duration(milliseconds: 100),
+                    borderOnForeground: false,
+                    clipBehavior: Clip.hardEdge,
+                    borderRadius: BorderRadius.circular(15),
+                    child: InkWell(
+                      onTap: () {},
+                      splashFactory: InkRipple.splashFactory,
+                      splashColor: CustomColor.shadowColor,
+                      child: Container(
+                        height: 280,
+                        clipBehavior: Clip.hardEdge,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              width: 0.5,
+                              color: Colors.grey,
+                            )),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Wisata Raja Ampat",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
                             SizedBox(
-                              height: 5,
+                              height: 200,
+                              width: double.infinity,
+                              child: Ink.image(
+                                image: const AssetImage("assets/raja.jpg"),
+                                fit: BoxFit.cover,
+                              ),
                             ),
-                            Row(
-                              children: [
-                                Icon(
-                                  Icons.star_rounded,
-                                  color: Colors.amber,
-                                  size: 20,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text("4.9"),
-                              ],
-                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Wisata Raja Ampat",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star_rounded,
+                                        color: Colors.amber,
+                                        size: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text("4.9"),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ),
