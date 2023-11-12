@@ -11,18 +11,18 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  double positionedImage = 0;
-  double heightImage = 250;
-  dynamic animationDuration = 300;
-  bool isTitleAppBarShown = false;
+  double _positionedImage = 0;
+  final double _heightImage = 250;
+  final dynamic _animationDuration = 300;
+  bool _isTitleAppBarShown = false;
 
-  void handleScroll() {
+  void _handleScroll() {
     if (widget.scrollController.offset > 70) {
-      positionedImage = -250;
-      isTitleAppBarShown = true;
+      _positionedImage = -250;
+      _isTitleAppBarShown = true;
     } else {
-      positionedImage = 0;
-      isTitleAppBarShown = false;
+      _positionedImage = 0;
+      _isTitleAppBarShown = false;
     }
   }
 
@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     widget.scrollController.addListener(
       () {
-        handleScroll();
+        _handleScroll();
         if (mounted) {
           setState(() {});
         }
@@ -55,26 +55,26 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
           AnimatedContainer(
-            duration: Duration(milliseconds: animationDuration),
-            height: isTitleAppBarShown ? 160 : heightImage + 30,
+            duration: Duration(milliseconds: _animationDuration),
+            height: _isTitleAppBarShown ? 160 : _heightImage + 30,
             width: getWidth(context),
             decoration: BoxDecoration(
                 border: Border.all(
-                    width: isTitleAppBarShown ? 0.5 : 0,
+                    width: _isTitleAppBarShown ? 0.5 : 0,
                     color:
-                        isTitleAppBarShown ? Colors.grey : Colors.transparent),
+                        _isTitleAppBarShown ? Colors.grey : Colors.transparent),
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20))),
+                    bottomLeft: Radius.circular(15),
+                    bottomRight: Radius.circular(15))),
             child: Stack(
               alignment: Alignment.center,
               children: [
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: animationDuration),
-                  top: positionedImage,
+                  duration: Duration(milliseconds: _animationDuration),
+                  top: _positionedImage,
                   child: Container(
-                    height: heightImage,
+                    height: _heightImage,
                     clipBehavior: Clip.hardEdge,
                     width: getWidth(context),
                     decoration: const BoxDecoration(
@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         Container(
                           width: getWidth(context),
-                          height: heightImage,
+                          height: _heightImage,
                           color: const Color.fromARGB(95, 0, 0, 0),
                         )
                       ],
@@ -98,8 +98,8 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 AnimatedPositioned(
-                  duration: Duration(milliseconds: animationDuration),
-                  top: isTitleAppBarShown ? 100 : heightImage - 20,
+                  duration: Duration(milliseconds: _animationDuration),
+                  top: _isTitleAppBarShown ? 100 : _heightImage - 20,
                   width: getWidth(context) * 0.9,
                   child: Container(
                     height: 45,
@@ -141,8 +141,8 @@ class _HomeViewState extends State<HomeView> {
                   left: 5,
                   child: AnimatedOpacity(
                       duration:
-                          Duration(milliseconds: isTitleAppBarShown ? 500 : 0),
-                      opacity: isTitleAppBarShown ? 1 : 0,
+                          Duration(milliseconds: _isTitleAppBarShown ? 500 : 0),
+                      opacity: _isTitleAppBarShown ? 1 : 0,
                       child: SafeArea(
                         child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -162,7 +162,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           Expanded(
             child: AnimatedContainer(
-              duration: Duration(milliseconds: animationDuration),
+              duration: Duration(milliseconds: _animationDuration),
               color: Colors.white,
               child: ListView.separated(
                 physics: const BouncingScrollPhysics(),
