@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animation/theme/color.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
 class HomeView extends StatefulWidget {
@@ -102,38 +101,46 @@ class _HomeViewState extends State<HomeView> {
                   duration: Duration(milliseconds: _animationDuration),
                   top: _isTitleAppBarShown ? 100 : _heightImage - 20,
                   width: getWidth(context) * 0.9,
-                  child: Container(
-                    height: 45,
-                    width: getWidth(context),
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        border: Border.all(width: 0.5, color: Colors.grey)),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
+                  child: Material(
+                    clipBehavior: Clip.hardEdge,
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 45,
+                        width: getWidth(context),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(width: 0.5, color: Colors.grey)),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.search,
+                                  color: Color.fromARGB(255, 126, 126, 126),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "Cari berdasarkan hati anda...",
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 126, 126, 126)),
+                                )
+                              ],
+                            ),
                             Icon(
-                              Icons.search,
+                              Icons.close,
                               color: Color.fromARGB(255, 126, 126, 126),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Cari berdasarkan hati anda...",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 126, 126, 126)),
                             )
                           ],
                         ),
-                        Icon(
-                          Icons.close,
-                          color: Color.fromARGB(255, 126, 126, 126),
-                        )
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -175,14 +182,10 @@ class _HomeViewState extends State<HomeView> {
                 itemBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Material(
-                    animationDuration: const Duration(milliseconds: 100),
-                    borderOnForeground: false,
                     clipBehavior: Clip.hardEdge,
                     borderRadius: BorderRadius.circular(15),
                     child: InkWell(
                       onTap: () {},
-                      splashFactory: InkRipple.splashFactory,
-                      splashColor: CustomColor.shadowColor,
                       child: Container(
                         height: 280,
                         clipBehavior: Clip.hardEdge,

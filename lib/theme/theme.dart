@@ -26,6 +26,8 @@ class CustomTheme {
       highlightColor: Colors.transparent,
       iconTheme: const IconThemeData(color: CustomColor.primaryColor, size: 25),
       shadowColor: CustomColor.shadowColor,
+      splashColor: CustomColor.shadowColor,
+      splashFactory: InkRipple.splashFactory,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           backgroundColor:
