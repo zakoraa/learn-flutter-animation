@@ -16,8 +16,8 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView>
-    with AutomaticKeepAliveClientMixin {
-  late final PageController _pageController;
+    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+  late final TabController _tabController;
   late final ScrollController _scrollController;
   double _widthTab = 0;
   int _selectedIndex = 0;
@@ -35,7 +35,7 @@ class _MainViewState extends State<MainView>
   };
 
   void _selectIndex() {
-    _pageController.animateToPage(_selectedIndex,
+    _tabController.animateTo(_selectedIndex,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
     setState(() {});
   }
@@ -67,8 +67,7 @@ class _MainViewState extends State<MainView>
 
   @override
   void initState() {
-    _pageController =
-        PageController(keepPage: true, viewportFraction: 1, initialPage: 0);
+    _tabController = TabController(length: _tabs.length, vsync: this);
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       _handleScroll();
@@ -100,13 +99,11 @@ class _MainViewState extends State<MainView>
         alignment: Alignment.center,
         fit: StackFit.expand,
         children: [
-          PageView.builder(
+          TabBarView(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: pages.length,
-            controller: _pageController,
-            itemBuilder: (context, index) {
-              return pages[index];
-            },
+            viewportFraction: 1,
+            controller: _tabController,
+            children: List.generate(_tabs.length, (index) => pages[index]),
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
