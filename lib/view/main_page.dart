@@ -34,7 +34,8 @@ class _MainViewState extends State<MainView>
     "Profile": [Icons.person_outline, Icons.person_rounded]
   };
 
-  void _selectIndex() {
+  void _selectIndex(int index) {
+    _selectedIndex = index;
     _tabController.animateTo(_selectedIndex,
         duration: const Duration(milliseconds: 300), curve: Curves.ease);
     setState(() {});
@@ -159,9 +160,8 @@ class _MainViewState extends State<MainView>
                                 setState(() {});
                               },
                               onTapDown: (details) {
-                                _selectedIndex = index;
                                 _iconSize = 20;
-                                _selectIndex();
+                                _selectIndex(index);
                               },
                               onTapCancel: () {
                                 _iconSize = 25;
