@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/util/media_query.dart';
-import 'package:flutter_animation/widget/global/card.dart';
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
@@ -30,12 +29,12 @@ class _ShopViewState extends State<ShopView> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: getHeight(context),
       width: getWidth(context),
-      child: Expanded(
-        child: ListViewCardWidget(animationDuration: 200, scrollController: _scrollController),
-      ),
+      alignment: Alignment.center,
+      color: Colors.blue,
+      child: const Text("Halaman Shop"),
     );
   }
 }

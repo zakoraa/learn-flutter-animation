@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
 
-class ListViewCardWidget extends StatelessWidget {
+class ListViewCardWidget extends StatefulWidget {
   final int animationDuration;
   final ScrollController scrollController;
-  const ListViewCardWidget({super.key, required this.animationDuration, required this.scrollController});
+  const ListViewCardWidget(
+      {super.key,
+      required this.animationDuration,
+      required this.scrollController});
 
+  @override
+  State<ListViewCardWidget> createState() => _ListViewCardWidgetState();
+}
+
+class _ListViewCardWidgetState extends State<ListViewCardWidget> {
+  bool startAnimation = false;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      startAnimation = true;
+      setState(() {});
+    });
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: Duration(milliseconds: animationDuration),
+      duration: Duration(milliseconds: widget.animationDuration),
       color: Colors.white,
       child: ListView.separated(
         physics: const BouncingScrollPhysics(),
@@ -16,23 +34,26 @@ class ListViewCardWidget extends StatelessWidget {
           height: 20,
         ),
         itemCount: 50,
-        controller: scrollController,
+        controller: widget.scrollController,
         itemBuilder: (context, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Material(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 1000 + (index * 200)),
+            transform: Matrix4.translationValues(
+                startAnimation ? 0 : MediaQuery.of(context).size.width, 0, 0),
+            height: 280,
             clipBehavior: Clip.hardEdge,
-            borderRadius: BorderRadius.circular(15),
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                height: 280,
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      width: 0.5,
-                      color: Colors.grey,
-                    )),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                  width: 0.5,
+                  color: Colors.grey,
+                )),
+            child: Material(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: BorderRadius.circular(15),
+              child: InkWell(
+                onTap: () {},
                 child: Column(
                   children: [
                     SizedBox(
