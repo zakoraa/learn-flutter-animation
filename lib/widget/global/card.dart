@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class CardWidget extends StatelessWidget {
+class ListViewCardWidget extends StatelessWidget {
   final int animationDuration;
-  final scrollController;
-  const CardWidget({super.key, required this.animationDuration, required this.scrollController});
+  final ScrollController scrollController;
+  const ListViewCardWidget({super.key, required this.animationDuration, required this.scrollController});
 
   @override
   Widget build(BuildContext context) {

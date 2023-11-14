@@ -10,24 +10,32 @@ class ShopView extends StatefulWidget {
 }
 
 class _ShopViewState extends State<ShopView> {
+  late ScrollController _scrollController;
+
   @override
   void initState() {
+    _scrollController = ScrollController();
     print("init Shop");
     super.initState();
   }
 
   @override
   void dispose() {
+    _scrollController.removeListener(
+      () {},
+    );
     print("dispose Shop");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: getHeight(context),
       width: getWidth(context),
-     
+      child: Expanded(
+        child: ListViewCardWidget(animationDuration: 200, scrollController: _scrollController),
+      ),
     );
   }
 }

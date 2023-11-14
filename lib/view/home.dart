@@ -170,7 +170,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Expanded(
-            child: CardWidget(animationDuration: _animationDuration, scrollController: widget.scrollController)
+            child: ListViewCardWidget(animationDuration: _animationDuration, scrollController: widget.scrollController)
           ),
         ],
       ),
