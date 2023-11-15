@@ -19,6 +19,18 @@ class _ShopViewState extends State<ShopView> {
     "assets/ticket3.jpg",
   ];
 
+  final List<String> _typeList = [
+    "Semua",
+    "Pesawat",
+    "Hotel",
+    "Vila & Apt.",
+    "To Do",
+    "Kereta Api",
+    "Bus Travel",
+    "Sewa Mobil",
+    "Jemputan Bandara",
+  ];
+
   @override
   void initState() {
     _scrollController = ScrollController();
@@ -104,6 +116,34 @@ class _ShopViewState extends State<ShopView> {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {},
+                  child: SizedBox(
+                    height: 50,
+                    width: getWidth(context),
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 5),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        width: 10,
+                      ),
+                      itemCount: _typeList.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                                width: 1, color: Colors.grey.shade500)),
+                        child: Text(_typeList[index]),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
