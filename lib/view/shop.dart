@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animation/theme/color.dart';
 import 'package:flutter_animation/util/media_query.dart';
 
 class ShopView extends StatefulWidget {
@@ -12,6 +13,7 @@ class ShopView extends StatefulWidget {
 class _ShopViewState extends State<ShopView> {
   late ScrollController _scrollController;
   int _selectedIndex = 0;
+  int _selectedType = 0;
 
   final List<String> _carouselImages = [
     "assets/ticket1.jpg",
@@ -23,7 +25,7 @@ class _ShopViewState extends State<ShopView> {
     "Semua",
     "Pesawat",
     "Hotel",
-    "Vila & Apt.",
+    "Vila & Apt",
     "To Do",
     "Kereta Api",
     "Bus Travel",
@@ -52,6 +54,11 @@ class _ShopViewState extends State<ShopView> {
     setState(() {});
   }
 
+  void selectType(int index) {
+    _selectedType = index;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -67,7 +74,7 @@ class _ShopViewState extends State<ShopView> {
                   margin: const EdgeInsets.only(top: 100),
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   width: getWidth(context),
-                  color: const Color.fromARGB(255, 226, 236, 255),
+                  color: CustomColor.bgBlue,
                   child: Row(
                     children: [
                       Column(
@@ -119,27 +126,40 @@ class _ShopViewState extends State<ShopView> {
                 const SizedBox(
                   height: 10,
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: SizedBox(
-                    height: 50,
-                    width: getWidth(context),
-                    child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 5),
-                      separatorBuilder: (context, index) => const SizedBox(
-                        width: 10,
-                      ),
-                      itemCount: _typeList.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Container(
+                SizedBox(
+                  height: 50,
+                  width: getWidth(context),
+                  child: ListView.separated(
+                    physics: const BouncingScrollPhysics(),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    separatorBuilder: (context, index) => const SizedBox(
+                      width: 10,
+                    ),
+                    itemCount: _typeList.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () => selectType(index),
+                      child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 15),
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
+                            color: index == _selectedType
+                                ? CustomColor.bgBlue
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                                width: 1, color: Colors.grey.shade500)),
-                        child: Text(_typeList[index]),
+                                width: 1,
+                                color: index == _selectedType
+                                    ? Colors.blueAccent
+                                    : Colors.grey.shade500)),
+                        child: Text(
+                          _typeList[index],
+                          style: TextStyle(
+                              color: index == _selectedType
+                                  ? Colors.blueAccent
+                                  : Colors.black),
+                        ),
                       ),
                     ),
                   ),
