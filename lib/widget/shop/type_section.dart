@@ -94,6 +94,7 @@ class _TypeSectionState extends State<TypeSection> {
           width: getWidth(context),
           height: 150,
           child: ListView.separated(
+            physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 15),
             separatorBuilder: (context, index) => const SizedBox(
               width: 10,

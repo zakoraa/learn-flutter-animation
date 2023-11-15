@@ -109,7 +109,35 @@ class _ShopViewState extends State<ShopView> {
                 const SizedBox(
                   height: 10,
                 ),
-                const TypeSection()
+                const TypeSection(),
+                const SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(10),
+                    color: CustomColor.bgBlue,
+                    clipBehavior: Clip.hardEdge,
+                    child: InkWell(
+                      onTap: () {},
+                      splashColor: const Color.fromARGB(255, 124, 206, 244),
+                      splashFactory: InkRipple.splashFactory,
+                      child: Container(
+                        width: getWidth(context),
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: const Text(
+                          "Lihat semua promo",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Colors.blueAccent),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),
