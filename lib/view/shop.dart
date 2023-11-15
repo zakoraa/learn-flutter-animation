@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation/theme/color.dart';
 import 'package:flutter_animation/util/media_query.dart';
+import 'package:flutter_animation/widget/shop/type_section.dart';
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});
@@ -13,24 +14,11 @@ class ShopView extends StatefulWidget {
 class _ShopViewState extends State<ShopView> {
   late ScrollController _scrollController;
   int _selectedIndex = 0;
-  int _selectedType = 0;
 
   final List<String> _carouselImages = [
     "assets/ticket1.jpg",
     "assets/ticket2.jpg",
     "assets/ticket3.jpg",
-  ];
-
-  final List<String> _typeList = [
-    "Semua",
-    "Pesawat",
-    "Hotel",
-    "Vila & Apt",
-    "To Do",
-    "Kereta Api",
-    "Bus Travel",
-    "Sewa Mobil",
-    "Jemputan Bandara",
   ];
 
   @override
@@ -51,11 +39,6 @@ class _ShopViewState extends State<ShopView> {
 
   void selectIndex(int index) {
     _selectedIndex = index;
-    setState(() {});
-  }
-
-  void selectType(int index) {
-    _selectedType = index;
     setState(() {});
   }
 
@@ -126,44 +109,7 @@ class _ShopViewState extends State<ShopView> {
                 const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
-                  height: 50,
-                  width: getWidth(context),
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 10,
-                    ),
-                    itemCount: _typeList.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => selectType(index),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: index == _selectedType
-                                ? CustomColor.bgBlue
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                                width: 1,
-                                color: index == _selectedType
-                                    ? Colors.blueAccent
-                                    : Colors.grey.shade500)),
-                        child: Text(
-                          _typeList[index],
-                          style: TextStyle(
-                              color: index == _selectedType
-                                  ? Colors.blueAccent
-                                  : Colors.black),
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                const TypeSection()
               ],
             ),
           ),
