@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../data/data.dart';
 import '../../theme/color.dart';
 import '../../util/media_query.dart';
 
@@ -13,23 +14,6 @@ class TypeSection extends StatefulWidget {
 class _TypeSectionState extends State<TypeSection> {
   int _selectedType = 0;
 
-  final List<String> _typeList = [
-    "Semua",
-    "Pesawat",
-    "Hotel",
-    "Vila & Apt",
-    "To Do",
-    "Kereta Api",
-    "Bus Travel",
-    "Sewa Mobil",
-    "Jemputan Bandara",
-  ];
-
-  final List<String> _imageList = [
-    "assets/ticket1.jpg",
-    "assets/ticket2.jpg",
-    "assets/ticket3.jpg",
-  ];
   void selectType(int index) {
     _selectedType = index;
     setState(() {});
@@ -59,7 +43,7 @@ class _TypeSectionState extends State<TypeSection> {
             separatorBuilder: (context, index) => const SizedBox(
               width: 10,
             ),
-            itemCount: _typeList.length,
+            itemCount: typeList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () => selectType(index),
@@ -77,7 +61,7 @@ class _TypeSectionState extends State<TypeSection> {
                             ? Colors.blueAccent
                             : Colors.grey.shade500)),
                 child: Text(
-                  _typeList[index],
+                  typeList[index],
                   style: TextStyle(
                       color: index == _selectedType
                           ? Colors.blueAccent
@@ -99,7 +83,7 @@ class _TypeSectionState extends State<TypeSection> {
             separatorBuilder: (context, index) => const SizedBox(
               width: 10,
             ),
-            itemCount: _imageList.length,
+            itemCount: imageList.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) => Container(
               clipBehavior: Clip.hardEdge,
@@ -107,8 +91,36 @@ class _TypeSectionState extends State<TypeSection> {
               decoration:
                   BoxDecoration(borderRadius: BorderRadius.circular(15)),
               child: Image.asset(
-                _imageList[index],
+                imageList[index],
                 fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Material(
+            borderRadius: BorderRadius.circular(10),
+            color: CustomColor.bgBlue,
+            clipBehavior: Clip.hardEdge,
+            child: InkWell(
+              onTap: () {},
+              splashColor: const Color.fromARGB(255, 124, 206, 244),
+              splashFactory: InkRipple.splashFactory,
+              child: Container(
+                width: getWidth(context),
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: const Text(
+                  "Lihat semua promo",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color: Colors.blueAccent),
+                ),
               ),
             ),
           ),

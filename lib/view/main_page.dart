@@ -90,7 +90,7 @@ class _MainViewState extends State<MainView>
     _widthTab = getWidth(context) * 0.9 / _tabs.length;
     List<Widget> pages = [
       HomeView(scrollController: _scrollController),
-      const ShopView(),
+      ShopView(scrollController: _scrollController),
       const ChatView(),
       const ProfileView()
     ];
